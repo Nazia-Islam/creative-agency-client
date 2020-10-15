@@ -1,0 +1,36 @@
+.login-box{
+    margin-top: 100px;
+    width: 40%;
+    height: 300px;
+    /* border: 1px solid lightblue; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.btn-brand{
+  outline: none!important;
+  border: 1px solid #ABABAB;
+  width: 50%;
+  border-radius: 20px;
+  background-image: url(../../images/icons/google.png);
+  background-size: contain;
+  background-repeat:no-repeat;
+  
+} 
+
+@media screen and (max-width: 992px) {
+    .login-box{
+        width: 75%;
+    }
+  }
+
+@media screen and (max-width: 600px) {
+    .login-box{
+        width: 75%;
+    }
+    .btn-brand{
+      width: 70%;
+    } 
+}
