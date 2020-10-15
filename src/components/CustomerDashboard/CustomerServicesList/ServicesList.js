@@ -12,9 +12,7 @@ const ServicesList = () => {
         fetch('http://localhost:5000/ownServices?email='+loggedInUser.email)
         .then(res => res.json())
         .then(data => {
-            // console.log(data);
             setServices(data);
-            // console.log(services);
         })
     }, []);
 

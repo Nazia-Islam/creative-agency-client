@@ -54,7 +54,7 @@ function App() {
             <AddAsAdmin/>
           </PrivateRoute>
           <Route exact path="/">
-            <Home></Home>
+            <Home />
           </Route>
           <Route path="/login">
             <Login></Login>

@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import './Sidebar.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCog, faSignOutAlt, faPlus, faUserPlus, faHome, faGripHorizontal, faShoppingBasket } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
+import { UserContext } from '../../../App';
 
 const Sidebar = () => {
+    const [loggedInUser, setLoggedInUser] = useContext(UserContext);
     return (
         <div>
             <div className="sidebar d-flex flex-column">
@@ -41,8 +43,8 @@ const Sidebar = () => {
                         </Link>
                     </li>
                     <li>
-                        <Link to="/setting">
-                            <FontAwesomeIcon icon={faSignOutAlt} /> <span>Logout</span>
+                        <Link to="/home">
+                            <FontAwesomeIcon icon={faSignOutAlt} /> <span onClick={() => setLoggedInUser({})}>Logout</span>
                         </Link>
                     </li>
                 </ul>

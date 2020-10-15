@@ -6,18 +6,23 @@ const serviceListCard = {
     alignItems: "left"
 }
 const ServiceListCard = ({name, service}) => {
+    console.log(service);
+    //const {status} = service.user_services.status;
+    //console.log(status);
+
     return (
-        // <div className="col-md-4 service-card">
-        //     <img className="w-25 mb-4" src={`data:image/png;base64,${service.image.img}`} alt=""/>
-        //     <h3 className="text-center" style={{color:"black"}}>{service.title}</h3>
-        //     <p className="text-center text-secondary">{service.serviceDescription}</p>
-        // </div>
-        <div style={serviceListCard} className="col-md-4">
-            <img className="w-25 mb-4" src={require('../../../images/icons/service1.png')} alt=""/>
-            <h3 style={{color:"black"}}>{service.title}</h3>
-            <p className="text-secondary">{service.projectDescription}</p>
+        <div style={serviceListCard} className="col-md-6">
+            <div className="row">
+                <div className="col-8">
+                    <img className="w-25 mb-4" src={`data:image/png;base64,${service.image.img}`} alt=""/>
+                </div>
+                <div className="col-4">
+                <p className="text-danger">pending</p>
+                </div>
+            </div>
+            <h5 style={{color:"black"}}>{service.title}</h5>
+            <p className="text-secondary">{service.serviceDescription}</p>
         </div>
-        //<h2>ww: {name}</h2>
     );
 };
 
