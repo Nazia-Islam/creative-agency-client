@@ -6,7 +6,16 @@ import { Link } from 'react-router-dom';
 import { UserContext } from '../../../App';
 
 const Sidebar = () => {
-    const [loggedInUser, setLoggedInUser] = useContext(UserContext);
+    //const [loggedInUser, setLoggedInUser] = useContext(UserContext);
+    const handleLogout =() => {
+        try {
+            sessionStorage.clear();
+            localStorage.clear();
+        } catch (error) {
+            console.log(error)
+        }
+       
+    }
     return (
         <div>
             <div className="sidebar d-flex flex-column">
@@ -44,7 +53,7 @@ const Sidebar = () => {
                     </li>
                     <li>
                         <Link to="/home">
-                            <FontAwesomeIcon icon={faSignOutAlt} /> <span onClick={() => setLoggedInUser({})}>Logout</span>
+                            <FontAwesomeIcon icon={faSignOutAlt} /> <span onClick={handleLogout}>Logout</span>
                         </Link>
                     </li>
                 </ul>

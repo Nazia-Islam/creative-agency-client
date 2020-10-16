@@ -3,6 +3,7 @@ import { UserContext } from '../../../App';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFileAlt } from '@fortawesome/free-regular-svg-icons';
 import { useState } from 'react';
+import jwt_decode from "jwt-decode";
 
 const titleStyle = {
     width: "100%",
@@ -12,6 +13,14 @@ const titleStyle = {
     resize: "vertical"
 };
 const PlaceOrder = ({serviceId, urlServiceTitle}) => {
+    let decodedToken = ''
+    try{
+        const token = localStorage.getItem('token');
+        decodedToken = jwt_decode(token);
+    }
+    catch(error){
+        
+    }
     const [loggedInUser, setLoggedInUser] = useContext(UserContext);
     const [info, setInfo] = useState({});
     const [file, setFile] =useState(null);
@@ -32,7 +41,7 @@ const PlaceOrder = ({serviceId, urlServiceTitle}) => {
         const formData = new FormData();
         formData.append('file', file);
         formData.append('name', info.name);
-        formData.append('email', loggedInUser.email);
+        formData.append('email', decodedToken.email);
         formData.append('projectDescription', info.projectDescription);
         formData.append('serviceId', serviceId)
         formData.append('serviceTitle', urlServiceTitle)
@@ -42,7 +51,6 @@ const PlaceOrder = ({serviceId, urlServiceTitle}) => {
         })
         .then(response => response.json())
         .then(data => console.log(data))
-       // e.preventDefault();
     };
 
     return (
@@ -54,7 +62,7 @@ const PlaceOrder = ({serviceId, urlServiceTitle}) => {
                         <div class="form-group">
                             <input onBlur={handleBlur} name="name" type="text" class="form-control" placeholder="Your Name/ Company's Name"/>
                         </div>
-                        <p style={titleStyle}>{loggedInUser.email}</p>
+                        <p style={titleStyle}>{decodedToken.email}</p>
                         <p style={titleStyle}>{urlServiceTitle}</p>
                         <div class="form-group">
                             <textarea onBlur={handleBlur} name="projectDescription" class="form-control" rows="3" placeholder="Project description"></textarea>
@@ -66,7 +74,8 @@ const PlaceOrder = ({serviceId, urlServiceTitle}) => {
                     </form>
                 </div>
                 <div className="user-name col-md-2">
-                    <p className="text-secondary">Name:{loggedInUser.name}</p>
+
+                    <p className="text-secondary">{decodedToken.name}</p>
                 </div>
             </div>
         </div>

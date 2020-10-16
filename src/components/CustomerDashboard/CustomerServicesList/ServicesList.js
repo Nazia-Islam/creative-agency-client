@@ -2,14 +2,21 @@ import React, { useContext, useEffect } from 'react';
 import { UserContext } from '../../../App';
 import ServiceListCard from './ServiceListCard';
 import { useState } from 'react';
+import jwt_decode from "jwt-decode";
 
 const ServicesList = () => {
-    const [loggedInUser, setLoggedInUser] = useContext(UserContext);
+    // const [loggedInUser, setLoggedInUser] = useContext(UserContext);
     const [services, setServices] = useState([]);
-    console.log(loggedInUser.email);
-    
+    let decodedToken = ''
+    try{
+        const token = localStorage.getItem('token');
+        decodedToken = jwt_decode(token);
+    }
+    catch(error){
+        
+    }
     useEffect(() => {
-        fetch('http://localhost:5000/ownServices?email='+loggedInUser.email)
+        fetch('http://localhost:5000/ownServices?email='+decodedToken.email)
         .then(res => res.json())
         .then(data => {
             setServices(data);
@@ -21,15 +28,14 @@ const ServicesList = () => {
             <div className="row">
                 <div className="col-md-10">
                     <h3>Services you are enjoying</h3>
-                    <p>total : {services.length}</p>
                     <div className="row">
                         {
-                            services.map(service => <ServiceListCard name={loggedInUser.name} service={service}></ServiceListCard>)
+                            services.map(service => <ServiceListCard name={decodedToken.name} service={service}></ServiceListCard>)
                         }
                     </div>  
                 </div>
                 <div className="user-name col-md-2">
-                    <p className="text-secondary">Name:{loggedInUser.name}</p>
+                    <p className="text-secondary">{decodedToken.name}</p>
                 </div>
             </div>
         </div>

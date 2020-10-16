@@ -1,9 +1,18 @@
 import React, { useContext, useState } from 'react';
 import Sidebar from '../Sidebar/Sidebar';
 import { UserContext } from '../../../App';
+import jwt_decode from "jwt-decode";
 
 const AddAsAdmin = () => {
-    const [loggedInUser, setLoggedInUser] = useContext(UserContext);
+    let decodedToken = ''
+    try{
+        const token = localStorage.getItem('token');
+        decodedToken = jwt_decode(token);
+    }
+    catch(error){
+        
+    }
+    //const [loggedInUser, setLoggedInUser] = useContext(UserContext);
     const [info, setInfo] = useState({});
 
     const handleBlur = e => {
@@ -35,7 +44,7 @@ const AddAsAdmin = () => {
                     <div className="row">
                         <div className="col-md-10">
                             <h3>Add as Admin</h3>
-                            <h5 className="ml-auto">{loggedInUser.name}</h5>
+                            <h5 className="ml-auto">{decodedToken.name}</h5>
                             <form onSubmit={handleSubmit}>
                                 <div class="form-group">
                                     <label htmlFor="email">Email</label>
@@ -44,9 +53,6 @@ const AddAsAdmin = () => {
                                 <button type="submit" class="btn btn-success">Submit</button>
                             </form>
                         </div>
-                        {/* <div className="user-name col-md-2">
-                            <p className="text-secondary">Name:{loggedInUser.name}</p>
-                        </div> */}
                     </div>
                 </div>
             </div>

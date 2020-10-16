@@ -1,9 +1,20 @@
 import React, { useContext, useState } from 'react';
 import Sidebar from '../Sidebar/Sidebar';
 import { UserContext } from '../../../App';
+import jwt_decode from "jwt-decode";
 
 const CustomerReview = () => {
-    const [loggedInUser, setLoggedInUser] = useContext(UserContext);
+    let decodedToken = ''
+    try{
+        const token = localStorage.getItem('token');
+        decodedToken = jwt_decode(token);
+        console.log(decodedToken)
+    }
+    catch(error){
+        
+    }
+
+    //const [loggedInUser, setLoggedInUser] = useContext(UserContext);
     const [info, setInfo] = useState({});
     const [file, setFile] =useState(null);
 
@@ -34,8 +45,6 @@ const CustomerReview = () => {
 
     };
 
-
-
     return (
         <div>
             <div className="container-fluid row">
@@ -48,23 +57,23 @@ const CustomerReview = () => {
                         <div className="col-md-10">
                             <h3>Review our Service</h3>
                             <form onSubmit={handleSubmit}>
-                                <div class="form-group">
-                                    <input onBlur={handleBlur} name="name" type="text" class="form-control" placeholder="Your Name/ Company's Name"/>
+                                <div className="form-group">
+                                    <input onBlur={handleBlur} name="name" type="text" className="form-control" placeholder="Your Name/ Company's Name"/>
                                 </div>
-                                <div class="form-group">
-                                    <input onBlur={handleBlur} name="company" type="text" class="form-control" placeholder="Company name, Designation"/>
+                                <div className="form-group">
+                                    <input onBlur={handleBlur} name="company" type="text" className="form-control" placeholder="Company name, Designation"/>
                                 </div>
-                                <div class="form-group">
-                                    <textarea onBlur={handleBlur} name="review" class="form-control" rows="3" placeholder="Project description"></textarea>
+                                <div className="form-group">
+                                    <textarea onBlur={handleBlur} name="review" className="form-control" rows="3" placeholder="Your Review"></textarea>
                                 </div>
-                                <div class="form-group">
-                                    <input onChange={handleFileChange} type="file" class="form-control" placeholder="Upload your picture"/>
+                                <div className="form-group">
+                                    <input onChange={handleFileChange} type="file" className="form-control" placeholder="Upload your picture"/>
                                 </div>
-                                <button type="submit" class="btn btn-primary">Submit</button>
+                                <button type="submit" className="btn btn-primary">Submit</button>
                             </form>
                         </div>
                         <div className="user-name col-md-2">
-                            <p className="text-secondary">Name:{loggedInUser.name}</p>
+                            <p className="text-secondary">{decodedToken.name}</p>
                         </div>
                     </div>
                 </div>

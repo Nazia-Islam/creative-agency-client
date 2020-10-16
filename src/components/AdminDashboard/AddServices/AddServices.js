@@ -1,8 +1,17 @@
 import React, { useContext, useState } from 'react';
 import { UserContext } from '../../../App';
+import jwt_decode from "jwt-decode";
 
 const AddServices = () => {
-    const [loggedInUser, setLoggedInUser] = useContext(UserContext);
+    let decodedToken = ''
+    try{
+        const token = localStorage.getItem('token');
+        decodedToken = jwt_decode(token);
+    }
+    catch(error){
+        
+    }
+    //const [loggedInUser, setLoggedInUser] = useContext(UserContext);
     const [info, setInfo] = useState({});
     const [file, setFile] =useState(null);
 
@@ -22,7 +31,7 @@ const AddServices = () => {
         const formData = new FormData();
         formData.append('file', file);
         formData.append('title', info.title);
-        formData.append('email', loggedInUser.email);
+        formData.append('email', decodedToken.email);
         formData.append('serviceDescription', info.serviceDescription);
 
         fetch('http://localhost:5000/addService', {
@@ -57,7 +66,7 @@ const AddServices = () => {
                     </form>
                 </div>
                 <div className="user-name col-md-2">
-                    <p className="text-secondary">Name:{loggedInUser.name}</p>
+                    <p className="text-secondary">{decodedToken.name}</p>
                 </div>
             </div>
         </div>

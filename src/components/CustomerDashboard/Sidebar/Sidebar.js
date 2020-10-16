@@ -6,14 +6,23 @@ import { Link } from 'react-router-dom';
 import { UserContext } from '../../../App';
 
 const Sidebar = () => {
-    const [loggedInUser, setLoggedInUser] = useContext(UserContext);
+    //const [loggedInUser, setLoggedInUser] = useContext(UserContext);
+    const handleLogout =() => {
+        try {
+            sessionStorage.clear();
+            localStorage.clear();
+        } catch (error) {
+            console.log(error)
+        }
+       
+    }
     return (
         <div>
             <div className="sidebar d-flex flex-column">
                 <img className="top-logo" style={{width:"150px"}} src={require("../../../logos/logo.png")} alt=""/>
                 <ul className="side-list-nav list-unstyled">
                     <li>
-                        <Link to="/customer/dashboard">
+                        <Link to="/user/dashboard">
                             <FontAwesomeIcon icon={faGripHorizontal} /> <span>Dashboard</span>
                         </Link>
                     </li>
@@ -23,12 +32,12 @@ const Sidebar = () => {
                         </Link>
                     </li>
                     <li>
-                        <Link to="/customer/dashboard">
-                            <FontAwesomeIcon icon={faShoppingCart} /> <span>Order Service</span>
+                        <Link to="/placeOrder">
+                            <FontAwesomeIcon icon={faShoppingCart} /> <span>Place Order</span>
                         </Link>
                     </li>
                     <li>
-                        <Link to="/servicesList">
+                        <Link to="/user/dashboard">
                             <FontAwesomeIcon icon={faShoppingBasket} /> <span>Srevice List</span>
                         </Link>
                     </li>
@@ -44,7 +53,7 @@ const Sidebar = () => {
                     </li>
                     <li>
                         <Link to="/home">
-                            <FontAwesomeIcon icon={faSignOutAlt} /> <span onClick={() => setLoggedInUser({})}>Logout</span>
+                            <FontAwesomeIcon icon={faSignOutAlt} /> <span onClick={handleLogout}>Logout</span>
                         </Link>
                     </li>
                 </ul>

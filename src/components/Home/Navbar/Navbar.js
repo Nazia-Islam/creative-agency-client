@@ -2,12 +2,30 @@ import React, { useContext } from 'react';
 import { UserContext } from '../../../App';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import jwt_decode from "jwt-decode";
 
 const Navbar = () => {
     const [loggedInUser, setLoggedInUser] = useContext(UserContext);
     let [role, setRole] = useState("");
     let [userRole, setUserRole] = useState("");
+    let decodedToken = '';
+    try{
+        const token = sessionStorage.getItem('token');
+        decodedToken = jwt_decode(token);
+    }
+    catch(error){
+        
+    }
 
+    const handleLogout =() => {
+        try {
+            sessionStorage.clear();
+            localStorage.clear();
+        } catch (error) {
+            console.log(error)
+        }
+       
+    }
     fetch('http://localhost:5000/getRole', {
         method: 'POST', 
         headers: {
@@ -54,12 +72,21 @@ const Navbar = () => {
                         <li class="nav-item mx-3">
                             <Link class="nav-link" to="/home">Contact Us</Link>
                         </li>
+                        {decodedToken && 
+                        <>
+                            <li class="nav-item mx-3">
+                                <Link class="nav-link disabled" to="/home">{decodedToken.name}</Link>
+                            </li>
+                            <li class="nav-item mx-3">
+                            <Link to="/"><button onClick={handleLogout}  className="btn btn-black">Logout</button></Link>
+                            </li>
+                        </>
+                        }
+                        {!decodedToken && 
                         <li class="nav-item mx-3">
-                            <Link class="nav-link disabled" to="/home">{ loggedInUser.name? loggedInUser.name : loggedInUser.email}</Link>
-                        </li>
-                        <li class="nav-item mx-3">
-                            <Link to="/login"><button onClick={() => setLoggedInUser({})} className="btn btn-black">{loggedInUser.email?"Logout":"Login"}</button></Link>    
-                        </li>
+                            <Link to="/login"><button className="btn btn-black">Login</button></Link>    
+                        </li> 
+                        }
                     </ul>
                     
                 </div>

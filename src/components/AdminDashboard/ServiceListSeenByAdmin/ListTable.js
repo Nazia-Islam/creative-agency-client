@@ -1,12 +1,19 @@
 import React from 'react';
 import './ListTable.css';
-//fa-pencil-square-o
+import { useState } from 'react';
+
 
 const ListTable = ({service}) => {
+    const currentStatus = service.status;
+    const [dropdown, setDropdown] = useState(currentStatus);
+
+    const handleDropdownChange = e => {
+        setDropdown(e.target.value);
+    }
 
     const handleUpdate = e => {
-        const data = {service}
-        fetch('http://localhost:5000//updateSatus', {
+        const data = {"id" : service._id, "email": service.email, "status" : dropdown}
+        fetch('http://localhost:5000/updateSatus', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(data)
@@ -19,16 +26,15 @@ const ListTable = ({service}) => {
             <td>{service.serviceTitle}</td>
             <td>{service.projectDescription}</td>
             <td>
-                <div class="form-group">
-                    <select id="status-select">
-                        <option selected="selected">{service.status}</option>
-                        <option className="bg-danger">Pending</option>
-                        <option className="bg-warning">On going</option>
-                        <option className="bg-success">Done</option>
-                    </select>
+                <div>
+                    <select id="status-select" value={dropdown} onChange={handleDropdownChange}>
+                        <option value="Pending" className="bg-danger">Pending</option>
+                        <option value="On going" className="bg-warning">On going</option>
+                        <option value="Done" className="bg-success">Done</option>
+                    </select>                 
                 </div>
             </td>
-            <td><button onClick={handleUpdate}>Update</button></td>
+            <td><button className="btn btn-info" onClick={handleUpdate}>Update</button></td>
         </tr>
     );
 };

@@ -3,9 +3,19 @@ import { useContext } from 'react';
 import { UserContext } from '../../../App';
 import { useState } from 'react';
 import ListTable from './ListTable';
+import jwt_decode from "jwt-decode";
 
 const ServiceListForAdmin = () => {
-    const [loggedInUser, setLoggedInUser] = useContext(UserContext);
+    let decodedToken = ''
+    try{
+        const token = localStorage.getItem('token');
+        decodedToken = jwt_decode(token);
+        console.log(decodedToken)
+    }
+    catch(error){
+        
+    }
+    //const [loggedInUser, setLoggedInUser] = useContext(UserContext);
     const [serviceList, setServicesList] = useState([]);
 
     useEffect(() => {
@@ -22,9 +32,9 @@ const ServiceListForAdmin = () => {
             <div className="place-order py-5">
                 <div className="row">
                     <div className="col-12">
-                        <div>
-                            <h4>Services List</h4>
-                            <h5 className="">{loggedInUser.name}</h5>
+                        <div className="d-flex justify-content-between">
+                            <h4>All Services</h4>
+                            <p className="">{decodedToken.name}</p>
                         </div>
                         <table class="table">
                             <thead>
@@ -44,9 +54,6 @@ const ServiceListForAdmin = () => {
                             </tbody>
                         </table>
                     </div>
-                    {/* <div className="user-name col-1">
-                        <p className="text-secondary">Name:{loggedInUser.name}</p>
-                    </div> */}
                 </div>
             </div>
         </div>

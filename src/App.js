@@ -10,7 +10,6 @@ import Login from './components/Login/Login';
 import { createContext } from 'react';
 import PrivateRoute from './components/PrivateRoute/PrivateRoute';
 import CustomerPlacesOrder from './components/CustomerDashboard/CustomerPlacesOrder/CustomerPlacesOrder';
-import AddServices from './components/AdminDashboard/AddServices/AddServices';
 import AdminAddDervices from './components/AdminDashboard/AdminAddServices/AdminAddServices';
 import PageNotFound from './components/PageNotFound/PageNotFound';
 import CustomerServicesList from './components/CustomerDashboard/CustomerServicesList/CustomerServicesList';
@@ -21,6 +20,7 @@ import AddAsAdmin from './components/AdminDashboard/AddAsAdmin/AddAsAdmin';
 export const UserContext = createContext();
 
 function App() {
+
   const [loggedInUser, setLoggedInUser] = useState({});
   return (
     <UserContext.Provider value={[loggedInUser, setLoggedInUser]}>
@@ -32,14 +32,14 @@ function App() {
           <PrivateRoute path="/service/:serviceId/:urlServiceTitle">
             <CustomerPlacesOrder/>
           </PrivateRoute>
-          <PrivateRoute path="/servicesList">
-            <CustomerServicesList/>
+          <PrivateRoute path="/placeOrder">
+            <CustomerPlacesOrder/>
           </PrivateRoute>
           <PrivateRoute path="/customerReview">
               <CustomerReview/>
           </PrivateRoute>
           <PrivateRoute path="/user/dashboard">
-            <CustomerPlacesOrder/>
+            <CustomerServicesList/>
           </PrivateRoute>
           <PrivateRoute path="/admin/dashboard">
             <AdminAddDervices></AdminAddDervices>
