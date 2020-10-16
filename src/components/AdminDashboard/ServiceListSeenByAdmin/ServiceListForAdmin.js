@@ -48,6 +48,9 @@ const ServiceListForAdmin = () => {
                             </thead>
                             <tbody>
                                 {
+                                    serviceList.length === 0 && <h4>Loading...</h4>
+                                }
+                                {
                                     serviceList.map(service => <ListTable service={service}></ListTable>)
                                 
                                 }

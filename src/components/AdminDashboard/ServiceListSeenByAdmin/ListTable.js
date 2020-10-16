@@ -27,14 +27,24 @@ const ListTable = ({service}) => {
             <td>{service.projectDescription}</td>
             <td>
                 <div>
-                    <select id="status-select" value={dropdown} onChange={handleDropdownChange}>
+                    {(currentStatus=== "Pending") && <select id="status-pending" value={dropdown} onChange={handleDropdownChange}>
                         <option value="Pending" className="bg-danger">Pending</option>
                         <option value="On going" className="bg-warning">On going</option>
                         <option value="Done" className="bg-success">Done</option>
-                    </select>                 
+                    </select>}
+                    {(currentStatus=== "On going") && <select id="status-ongoing" value={dropdown} onChange={handleDropdownChange}>
+                    <option value="Pending" className="bg-danger">Pending</option>
+                    <option value="On going" className="bg-warning">On going</option>
+                    <option value="Done" className="bg-success">Done</option>
+                </select>}
+               { (currentStatus=== "Done") && <select id="status-done" value={dropdown} onChange={handleDropdownChange}>
+                <option value="Pending" className="bg-danger">Pending</option>
+                <option value="On going" className="bg-warning">On going</option>
+                <option value="Done" className="bg-success">Done</option>
+            </select>  }              
                 </div>
             </td>
-            <td><button className="btn btn-info" onClick={handleUpdate}>Update</button></td>
+            <td><button className="my-btn btn btn-outline-dark" onClick={handleUpdate}>Update</button></td>
         </tr>
     );
 };

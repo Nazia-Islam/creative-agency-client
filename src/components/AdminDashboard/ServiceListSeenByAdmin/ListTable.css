@@ -2,7 +2,25 @@
     padding: 0.25rem!important;
 }
 
-#status-select{
+select{
     padding: 0;
     background-color: white;
+    
+    outline: none;
+}
+#status-pending{
+    color: red;
+    border: 1px solid red;
+}
+#status-ongoing{
+    color:  orange;
+    border: 1px solid orange;
+}
+#status-done{
+    color:  green;
+    border: 1px solid green;
+}
+
+.mmy-btn{
+    padding: 0rem 0.25rem;
 }

@@ -20,7 +20,6 @@ import AddAsAdmin from './components/AdminDashboard/AddAsAdmin/AddAsAdmin';
 export const UserContext = createContext();
 
 function App() {
-
   const [loggedInUser, setLoggedInUser] = useState({});
   return (
     <UserContext.Provider value={[loggedInUser, setLoggedInUser]}>

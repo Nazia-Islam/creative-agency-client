@@ -31,7 +31,7 @@ const Navbar = () => {
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify({"user":loggedInUser.email}),
+        body: JSON.stringify({"user":decodedToken.email}),
         })
         .then(res=> res.json())
         .then(data=> {
@@ -78,7 +78,7 @@ const Navbar = () => {
                                 <Link class="nav-link disabled" to="/home">{decodedToken.name}</Link>
                             </li>
                             <li class="nav-item mx-3">
-                            <Link to="/"><button onClick={handleLogout}  className="btn btn-black">Logout</button></Link>
+                            <Link to="/home"><button onClick={handleLogout}  className="btn btn-black">Logout</button></Link>
                             </li>
                         </>
                         }
